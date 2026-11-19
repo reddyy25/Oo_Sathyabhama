@@ -1,0 +1,2 @@
+const base=(import.meta.env.VITE_API_BASE_URL||'').replace(/\/$/,'');
+export async function api(path,body){if(!base)throw new Error('Backend URL is not configured. Add VITE_API_BASE_URL to .env.local.');const res=await fetch(`${base}/${path}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const data=await res.json().catch(()=>({}));if(!res.ok)throw new Error(data.error||'Request failed. Please try again.');return data;}
